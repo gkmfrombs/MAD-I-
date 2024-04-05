@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Statistics - Glibrary
+{% endblock %}
+
+{% block content %}
+<div class="row mt-4">
+    <div class="col-md-8 offset-md-2">
+        <h2 class="text-center">Glibrary Statistics</h2>
+        
+        <!-- Display the graph using the encoded image -->
+        <img src="data:image/png;base64,{{ encoded_image }}" alt="Library Statistics" class="img-fluid">
+        
+        <!-- Display other statistics -->
+        <ul class="list-group mt-4">
+            <li class="list-group-item">Total Users: {{ total_users }}</li>
+            <li class="list-group-item">Total Books: {{ total_books }}</li>
+            <li class="list-group-item">Total Requests: {{ total_requests }}</li>
+            <li class="list-group-item">Average Rating: {{ average_rating|default('N/A') }}</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

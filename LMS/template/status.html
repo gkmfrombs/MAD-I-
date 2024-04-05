@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Current Status - Glibrary
+{% endblock %}
+
+{% block content %}
+<h1 class="text-center">Current Status  Of {{ name}}</h1>
+<div class="table-responsive mt-4">
+    <table class="table table-bordered table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">User ID</th>
+                <th scope="col">Book Name</th>
+                <th scope="col">Author</th>
+                <th scope="col">Section</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for request in requests %}
+                <tr>
+                    <th scope="row">{{ loop.index }}</th>
+                    <td>{{ request.user.id }}</td>
+                    <td>{{ request.book.name }}</td>
+                    <td>{{ request.book.author }}</td>
+                    <td>{{ request.book.section.name }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

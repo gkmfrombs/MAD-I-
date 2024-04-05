@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ book.name }} Summary - Glibrary
+{% endblock %}
+
+{% block content %}
+<div class="row mt-4">
+    <div class="col-md-8 offset-md-2">
+        <h2 class="text-center">{{ book.name }} Summary</h2>
+        <div class="card mb-3">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="{{ url_for('static', filename=book.thumbnail_path) }}" alt="{{ book.name }}" class="img-fluid">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ book.name }}</h5>
+                        <p class="card-text"><strong>Author:</strong> {{ book.author }}</p>
+                        <p class="card-text"><strong>Date Issued:</strong> {{ book.date_issued.strftime('%Y-%m-%d') }}</p>
+                        <p class="card-text"><strong>Section:</strong> {{ book.section.name }}</p>
+                        <p class="card-text"><strong>Summary:</strong>
+                            <div id="summary" class="hoverable-summary">
+                                Glibrary is a fictional digital library platform that provides access to a vast collection of books.
+                                 It offers a user-friendly interface,
+                                  allowing users to explore various sections and discover top-rated books. 
+                                  The library features detailed book summaries, including author information,
+                                   date of issuance, and engaging content. 
+                                   Users can request books,
+                                    provide feedback, and enjoy a seamless reading experience.
+                            </div>
+                        </p>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a href="{{ url_for('book_request', id=book.book_id ) }}" class="btn btn-primary"> Request </a>
+
+        <a href="{{ url_for('index') }}" class="btn btn-secondary">Back to Library</a>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block style %}
+<style>
+    .hoverable-summary {
+        padding: 10px;
+        border-radius: 5px;
+        background-color: #f8f9fa; 
+        transition: background-color 0.3s ease; 
+    }
+
+    .hoverable-summary:hover {
+        background-color: #d1ecf1; 
+    }
+</style>
+{% endblock %}

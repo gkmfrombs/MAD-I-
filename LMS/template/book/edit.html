@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Edit Book - Glibrary    
+{% endblock  %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h1 class="text-center">Edit Book</h1>
+        <form class="row g-3" method="post" enctype="multipart/form-data">
+            <div class="col-md-6">
+                <label for="name" class="form-label">Name:</label>
+                <input type="text" name="name" id="name" class="form-control" required value="{{book.name}}"/>            
+            </div>
+            <div class="col-md-6">
+                <label for="author" class="form-label">Author:</label>
+                <input type="text" name="author" id="author" class="form-control" required value="{{book.author}}"/>            
+            </div>
+            <div class="col-md-6">
+                <label for="thumbnail" class="form-label">Thumbnail:</label>
+                <input type="file" name="thumbnail" id="thumbnail" class="form-control" accept="image/*" required value="{{book.thumbnail}}" />
+            </div>
+            <div class="col-md-6">
+                <label for="content" class="form-label">Content:</label>
+                <input type="file" name="content" id="content" class="form-control" accept="application/pdf">
+            </div>
+            
+            <div class="col-md-6">
+                <label for="section" class="form-label">Section:</label>
+                <select name="section" id="section" class="form-select" required>
+                    {% for section in sections %}
+                        {% if section.section_id == section_id %}
+                            <option value="{{section.section_id}}" selected>{{section.name}}</option>
+                        {% else %}                  
+                            <option value="{{section.section_id}}">{{section.name}}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label for="date_issued" class="form-label">Date Issued:</label>
+                <input type="date" name="date_issued" max="{{maxstring}}" id="date_issued" class="form-control" required />
+            </div>
+            <div class="col-12 text-center mt-3">
+                <input type="submit" class="btn btn-success" value="Save">
+            </div>
+        </form>
+    </div>
+{% endblock  %}
+
+{% block style %}
+    {{ super() }}
+    <style>
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form {
+            margin-top: 32px;
+        }
+    </style>
+{% endblock  %}

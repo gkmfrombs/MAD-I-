@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Books of {{section.name}} - Glibrary
+{% endblock  %}
+{% block content %}
+    <h1>Books of {{section.name}}</h1>
+    <div class="heading">
+        <!-- <h2 class="text-muted">Books</h2> -->
+        <a href="{{url_for('activity',id=section.section_id)}}" class="btn btn-primary">
+            <i class="fas fa-plus fa-xs"></i>
+            User Activity
+        </a>
+        <a href="{{url_for('book_add',section_id=section.section_id)}}" class="btn btn-success">
+            <i class="fas fa-plus fa-xs"></i>
+            Add Book
+        </a>
+    </div>
+        <h5 class="text-muted">
+            <em>
+                Showing Books of Section {{section.name}} only.
+            </em>
+
+        </h5>
+    <table class="table">
+        <thead class="table-dark">
+            <tr>
+                <th>Section Id</th>
+                <th>Book name</th>
+                <th>Author</th>
+                <th>Date Issued</th>
+                <th>Actions</th>              
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in section.books  %}
+            <!-- <img src="{{url_for('static', filename=book.thumbnail_path)}}" alt="Book Image" class="img-thumbnail" width="100px" height="100px"  > -->
+    
+            <tr>
+                <td>{{book.book_id}}</td>
+                <td>{{book.name}}</td>
+                <td>{{book.author}}</td>
+                <td>{{book.date_issued}}</td>
+                <td>
+                    <a href="{{url_for('book_edit', id=book.book_id)}}" class="btn btn-outline-success">
+                        <i class="fas fa-search"></i>
+                        Edit
+                    </a>
+                    <a href="{{url_for('book_delete',id=book.book_id)}}" class="btn btn-danger">
+                        <i class="fas fa-edit fa-xs"></i>
+                        Delete
+                    </a>
+                </td>
+            </tr>
+                
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock  %}
+{% block style %}
+<style>
+    .heading{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }    
+    h1,h2{
+        text-align: center;
+    }
+</style>
+    
+{% endblock  %}

@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Librarian Dashboard - Glibrary
+{% endblock  %}
+{% block content %}
+    <h1>Librarian Dashboard</h1>
+    <div class="heading">
+        <h2 class="text-muted">Sections</h2>
+        <a href="{{url_for('section_add')}}" class="btn btn-success">
+            <i class="fas fa-plus fa-xs"></i>
+            Add Section
+        </a>
+    </div>
+    <table class="table">
+        <thead class="table-dark">
+            <tr>
+                <th>Section Id</th>
+                <th>Section Name</th>
+                <th>Number Of Books</th>
+                <th>Actions</th>              
+            </tr>
+        </thead>
+        <tbody>
+            {% for section in sections  %}
+            <tr>
+                <td>{{section.section_id}}</td>
+                <td>{{section.name}}</td>
+                <td>{{section.books|length}}</td>
+                <td>
+                    <a href="{{url_for('section_view', id=section.section_id)}}" class="btn btn-outline-success">
+                        <i class="fas fa-search"></i>
+                        View
+                    </a>
+                    <a href="{{url_for('section_edit',id=section.section_id)}}" class="btn btn-primary">
+                        <i class="fas fa-edit fa-xs"></i>
+                        Edit
+                    </a>
+                    <a href="{{url_for('section_delete',id=section.section_id)}}" class="btn btn-danger">
+                    <i class="fas fa-edit fa-xs"></i>
+                    Delete
+                    </a>
+                </td>
+            </tr>
+                
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock  %}
+{% block style %}
+<style>
+    .heading{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }    
+    h1,h2{
+        text-align: center;
+    }
+</style>
+    
+{% endblock  %}

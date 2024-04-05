@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Revoke Access - {{ book.name }} - Glibrary
+{% endblock %}
+
+{% block content %}
+<div class="row mt-4">
+    <div class="col-md-8 offset-md-2">
+        <h2 class="text-center">Revoke Access - {{ book.name }}</h2>
+        
+        <!-- Display book information -->
+        <p><strong>Book:</strong> {{ book.name }}</p>
+        <p><strong>Section:</strong> {{ book.section.name }}</p>
+        <p><strong>Date Issued:</strong> {{ book.date_issued.strftime('%Y-%m-%d') }}</p>
+
+        <!-- Add a form to confirm and revoke access -->
+       <!-- Display table of all users with revoke button -->
+        <table class="table mt-4">
+            <thead class="table-dark">
+                <tr>
+                    <th>User ID</th>
+                    <th>Username</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in all_users %}
+                    {% if not user.is_librarian %}
+                    <tr>
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.username }}</td>
+                        <td>
+                            <form method="post" action="{{ url_for('book_revoke_post', user_id=user.id, book_id=book.book_id) }}">
+                                <button type="submit" class="btn btn-danger">Revoke Access</button>
+                                <!-- Add confirmation mechanism if needed -->
+                                <input type="hidden" name="confirmation" value="CONFIRM">
+                                <a href="{{url_for('section_view', id=book.section_id)}}" class=" btn btn-secondary"> Back</a>
+                                
+                            </form>
+                        </td>
+                    </tr>
+                        
+                    {% endif %}
+                    
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+
+
+

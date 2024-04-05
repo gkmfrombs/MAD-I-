@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Books of {{section.name}} - Glibrary
+{% endblock  %}
+{% block content %}
+    
+        <h2 class="text-muted">User Activity</h2>
+         <h5 class="text-muted">
+            <em>
+                Showing Books of Section {{section.name}} only.
+            </em>
+
+        </h5>
+    <table class="table">
+        <thead class="table-dark">
+            <tr>
+                <th>Section Id</th>
+                <th>Book name</th>
+                <th>Author</th>
+                <th>Date Issued</th>
+                <th>Actions</th>              
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in section.books  %}
+            <!-- <img src="{{url_for('static', filename=book.thumbnail_path)}}" alt="Book Image" class="img-thumbnail" width="100px" height="100px"  > -->
+    
+            <tr>
+                <td>{{book.book_id}}</td>
+                <td>{{book.name}}</td>
+                <td>{{book.author}}</td>
+                <td>{{book.date_issued}}</td>
+                <td>
+                                     
+                    {% if book.access_status == 'revoked' %}
+                        <button class="btn btn-outline-warning" disabled>
+                            <i class="fas fa-revoke fa-xs"></i>
+                            Revoke
+                        </button>
+                    {% else %}
+                        <a href="{{url_for('book_revoke',user_id=user.id,book_id=book.book_id )}}" class="btn btn-warning">
+                            <i class="fas fa-revoke fa-xs"></i>
+                            Revoke
+                        </a>
+                    {% endif %}
+
+                    {% if book.access_status == 'activated' %}
+                        <button class="btn btn-primary" disabled>
+                            <i class="fas fa-activate fa-xs"></i>
+                            Activate
+                        </button>
+                    {% else %}
+                        <a href="{{url_for('book_activate', user_id=user.id, book_id=book.book_id)}}" class="btn btn-outline-primary">
+                            <i class="fas fa-activate fa-xs"></i>
+                            Activate
+                        </a>
+                    {% endif %}
+                            
+
+                </td>
+            </tr>
+                
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock  %}
+{% block style %}
+<style>
+    .heading{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }    
+    h1,h2{
+        text-align: center;
+    }
+</style>
+    
+{% endblock  %}

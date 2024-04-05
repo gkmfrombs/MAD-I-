@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Home - Glibrary
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4 ">
+    <div class="row">
+        <div class="col-md-12 mb-4">
+            <form class="form-inline my-2 my-lg-0" action="{{ url_for('search') }}" method="GET">
+                <input class="form-control mr-sm-2" type="text" placeholder="Search" name="query" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-8" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Display Top Books -->
+    <h3>Top Books</h3>
+    <div class="d-flex align-content-stretch flex-wrap">
+        {% for book in top_books %}
+        <div class="list-group book-item">
+            <a href="{{ url_for('book_summary', id=book.book_id) }}" class="list-group-item list-group-item-action me-3">
+                <img src="{{ url_for('static', filename=book.thumbnail_path) }}" alt="Book Image" class="img-thumbnail" width="100px" height="100px">
+                <h6 class="mb-1">{{ book.name }}</h6>
+                <p class="mb-1">{{ book.author }}</p>
+                <!-- Display feedback for the book -->
+                <div class="mt-3">
+                
+                    {% for feedback in feedbacks if feedback.book_id == book.book_id  %}
+                    {% if loop.first %}
+                        
+                    
+                    <p>{{ feedback.comment }}:
+                        {% for star in range(feedback.rating) %}
+                            <span class="bi bi-star-fill text-warning"></span>
+                        {% endfor %}
+                        {% for star in range(5 - feedback.rating) %}
+                            <span class="bi bi-star text-warning"></span>
+                        {% endfor %}
+                    </p>
+                    {% endif %}
+                {% endfor %}
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+    
+
+    <!-- Display Other Sections and Books -->
+    <div class="row">
+        {% for section in sections %}
+            <div class="col-md-12 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ section.name }}</h5>
+                        <!-- Give description a mutated style or color -->
+                        <p class="card-text" style="font-weight: bold; color: #3498db;">{{ section.description }}</p>
+                        
+                        <div class="d-flex align-content-stretch flex-wrap">
+                            {% for book in section.books %}
+                                <div class="list-group book-item">
+                                    <a href="{{ url_for('book_summary', id=book.book_id) }}" class="list-group-item list-group-item-action me-3">
+                                        <img src="{{url_for('static', filename=book.thumbnail_path)}}" alt="Book Image" class="img-thumbnail" width="100px" height="100px">
+                                        <h6 class="mb-1">{{ book.name }}</h6>
+                                        <p class="mb-1">{{ book.author }}</p>
+                                        <!-- Display feedback for the book as stars -->
+                                        <div class="mt-3">
+                                            
+                                            {% for feedback in feedbacks if feedback.book_id == book.book_id  %}
+                                                {% if loop.first %}
+                                                    
+                                                
+                                                <p>{{ feedback.comment }}:
+                                                    {% for star in range(feedback.rating) %}
+                                                        <span class="bi bi-star-fill text-warning"></span>
+                                                    {% endfor %}
+                                                    {% for star in range(5 - feedback.rating) %}
+                                                        <span class="bi bi-star text-warning"></span>
+                                                    {% endfor %}
+                                                </p>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                    </a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block style %}
+<style>
+    .book-item {
+        margin-right: 10px; /* Adjust the margin value as needed */
+        margin-bottom: 10px; /* Adjust the margin value as needed */
+        
+    }
+</style>
+   
+{% endblock %}

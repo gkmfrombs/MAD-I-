@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Edit Section - Glibrary    
+{% endblock  %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h1 class="text-center">Edit Section</h1>
+        <form class="row g-3" method="post">
+            <div class="col-md-6">
+                <label for="name" class="form-label">Name:</label>
+                <input type="text" name="name" id="name" class="form-control" required value="{{section.name}}"/>            
+            </div>
+            <div class="col-md-6">
+                <label for="created_date" class="form-label">Created Date:</label>
+                <input type="date" name="created_date" id="created_date" class="form-control" required value="{{ section.created_date }}">
+            </div>
+            <div class="col-12">
+                <label for="description" class="form-label">Description:</label>
+                <textarea name="description" id="description" class="form-control" required>{{ section.description }}</textarea>
+            </div>
+            <div class="col-12 text-center">
+                <input type="submit" class="btn btn-success" value="Save">
+            </div>
+        </form>
+    </div>
+{% endblock  %}
+
+{% block style %}
+    
+    <style>
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        form {
+            max-width: 600px;
+            margin: auto;
+        }
+    </style>
+{% endblock  %}

@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ book.name }} - Book Details - Glibrary
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">{{ book.name }}</h3>
+                    <p class="card-text"><strong>Author:</strong> {{ book.author }}</p>
+                    <p class="card-text"><strong>Date Issued:</strong> {{ book.date_issued.strftime('%Y-%m-%d') }}</p>
+                    <p class="card-text"><strong>Section:</strong> {{ book.section.name }}</p>
+                    <img src="{{url_for('static', filename=book.thumbnail_path)}}" alt="Book Image" class="img-thumbnail" width="100px" height="100px">
+                    <p class="mt-3"><strong>Content:</strong></p>
+                    <a href="{{ url_for('static', filename=book.content_path)}}" class="btn btn-primary">View Content</a> 
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feedback Section -->
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">Feedback</h3>
+                    {% for feedback in feedbacks %}
+                        <p>{{ feedback.comment }} - Rating: {{ feedback.rating }}</p>
+                    {% endfor %}
+
+                    <!-- Link to the feedback form -->
+                    <a href="{{ url_for('feedback', book_id=book.book_id) }}" class="btn btn-primary mt-3">Give Feedback</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

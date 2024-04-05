@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}
+    Delete Section - Glibrary    
+{% endblock  %}
+{% block content %}
+    <h1>Delete Section</h1>
+    <h2 class="text-center text-danger">
+        Are you sure you want to delete Section
+        <strong>{{section.name}}</strong>
+        ?
+    </h2>
+    <form  class="form" method="post">
+        <input type="submit" class="btn btn-danger" value="Delete">
+    </form>        
+{% endblock  %}
+{% block style %}
+    <style>
+        h1{
+            text-align: center;
+        }
+        h2{
+            margin: 32px auto;
+        }
+        form{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    </style>
+    
+{% endblock  %}
